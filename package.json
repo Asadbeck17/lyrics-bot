@@ -1,0 +1,27 @@
+{
+  "name": "lyricsbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/bot.js",
+    "start": "node src/bot.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "cheerio": "^1.1.0",
+    "dotenv": "^16.5.0",
+    "genius-lyrics-api": "^3.2.1",
+    "he": "^1.2.0",
+    "lyrics-finder": "^21.7.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

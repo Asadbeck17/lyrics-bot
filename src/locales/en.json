@@ -1,0 +1,21 @@
+{
+    "welcome_new": "👋 Hello! Welcome to our bot!\n\nPlease select a language to get started 👇",
+    "welcome_existing": "👋 Hi! Which song's lyrics would you like to find?\n\nType the song name or artist, and I'll try to find the lyrics. \n\nFor example, `Macan` or `Shazam - Macan`.",
+    "language_selected": "✅ Language changed successfully!",
+    "language_select_prompt": "⚙️ Please select your preferred language for communication:",
+    "searching_lyrics": "🔍 Searching for \"{query}\", please wait a moment...",
+    "lyrics_found": "🎶 Lyrics found:\n\n*{title}* {artist_block}",
+    "artist_with_dash": "- *{artist}*",
+    "lyrics_too_long": "\n\n📄 (Due to a large size, the lyrics will be sent in parts)",
+    "lyrics_not_found": "😕 Unfortunately, nothing was found for your query \"{query}\".\n\nPlease try a different name or specify the artist's name more accurately.",
+    "error_generic": "🚫 An error occurred!\n\nPlease try again later or contact the administrator.",
+    "error_genius_403": "🚫 There was a problem connecting to the Genius API (403).\n\nThis might be a temporary issue. Please try again later.",
+    "error_genius_404": "😕 Data for \"{query}\" was not found on Genius API (404).",
+    "error_db_save": "⚙️ An error occurred while saving language settings.",
+    "error_bot_connection": "🔌 An error occurred while connecting to the bot. Please try again later.",
+    "artist_songs_found_title": "songs found",
+    "page_info": "(Page: {currentPage} / {totalPages})",
+    "no_more_songs": "ℹ️ No more songs found.",
+    "select_song_prompt": "👇 Click the song number to see the lyrics:",
+    "searching_specific_song": "⏳ Searching for lyrics for \"{songTitle}\"..."
+}

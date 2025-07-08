@@ -1,0 +1,21 @@
+{
+    "welcome_new": "👋 Assalomu alaykum! Botimizga xush kelibsiz!\n\nTilni tanlab, boshlashingiz mumkin 👇",
+    "welcome_existing": "👋 Salom! Sizga qaysi qo'shiqni matnini xohlaysiz?\n\nQo'shiq nomini yoki ijrochisini yozing, men matnini topishga harakat qilaman. \n\nMasalan, `Macan` yoki `Shazam - Macan`.",
+    "language_selected": "✅ Til muvaffaqiyatli o'zgartirildi!",
+    "language_select_prompt": "⚙️ Iltimos, muloqot uchun qulay tilni tanlang:",
+    "searching_lyrics": "🔍 \"{query}\" uchun qidirilmoqda, biroz kuting...",
+    "lyrics_found": "🎶 Qo'shiq matni topildi:\n\n*{title}* {artist_block}",
+    "artist_with_dash": "- *{artist}*",
+    "lyrics_too_long": "\n\n📄 (Matn hajmi kattaligi sababli qismlarga bo'lib yuboriladi)",
+    "lyrics_not_found": "😕 Afsus, \"{query}\" so'rovingiz bo'yicha hech narsa topilmadi.\n\nIltimos, boshqa nom bilan yoki ijrochi nomini aniqroq yozib ko'ring.",
+    "error_generic": "🚫 Xatolik yuz berdi!\n\nIltimos, birozdan so'ng qayta urinib ko'ring yoki adminga xabar bering.",
+    "error_genius_403": "🚫 Genius API bilan ulanishda muammo (403).\n\nBu vaqtinchalik holat bo'lishi mumkin. Keyinroq urinib ko'ring.",
+    "error_genius_404": "😕 \"{query}\" uchun Genius API'dan ma'lumot topilmadi (404).",
+    "error_db_save": "⚙️ Til sozlamalarini saqlashda xatolik yuz berdi.",
+    "error_bot_connection": "🔌 Bot bilan ulanishda xatolik yuz berdi. Iltimos, keyinroq urinib ko'ring.",
+    "artist_songs_found_title": "topilgan qo'shiqlar",
+    "page_info": "(Sahifa: {currentPage} / {totalPages})",
+    "no_more_songs": "ℹ️ Boshqa qo'shiqlar topilmadi.",
+    "select_song_prompt": "👇 Matnini ko'rish uchun qo'shiq raqamini bosing:",
+    "searching_specific_song": "⏳ \"{songTitle}\" qo'shig'ining matni qidirilmoqda..."
+}
