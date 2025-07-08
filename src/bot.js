@@ -9,6 +9,7 @@ const geniusService = require('./services/geniusService');
 
 const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
 const geniusApiKey = process.env.GENIUS_API_TOKEN;
+const channel = process.env.CHANNEL_ID
 
 if (!telegramToken) {
     console.error("TELEGRAM_BOT_TOKEN topilmadi! .env faylini tekshiring.");
@@ -51,30 +52,60 @@ async function main() {
         bot.onText(/\/start/, async (msg) => {
             const chatId = msg.chat.id;
             const userInfo = { first_name: msg.from.first_name, last_name: msg.from.last_name, username: msg.from.username };
+        
             try {
                 const user = await db.getUser(chatId);
+        
+                // Yangi foydalanuvchilar uchun blok
                 if (!user || !user.language) {
                     await db.upsertUser(chatId, DEFAULT_LANGUAGE_FOR_NEW_USER, userInfo);
-                    const welcomeNewMessage = loadedTranslations[DEFAULT_LANGUAGE_FOR_NEW_USER]?.welcome_new || 
-                                              loadedTranslations['uz']?.welcome_new || "Please select your language";
+                    
+                    const welcomeNewMessage = loadedTranslations[DEFAULT_LANGUAGE_FOR_NEW_USER]?.welcome_new 
+                                            || loadedTranslations['uz']?.welcome_new 
+                                            || "Please select your language";
+        
+                    // >>> DIQQAT: TUGMALAR AYNAN SHU YERDA YARATILADI <<<
                     const opts = {
                         reply_markup: {
                             inline_keyboard: [
-                                [ { text: "🇺🇿 O'zbekcha", callback_data: 'set_lang_uz' }, { text: "🇷🇺 Русский", callback_data: 'set_lang_ru' }, { text: "🇬🇧 English", callback_data: 'set_lang_en' }]
+                                [
+                                    { text: "🇺🇿 O'zbekcha", callback_data: 'set_lang_uz' },
+                                    { text: "🇷🇺 Русский", callback_data: 'set_lang_ru' },
+                                    { text: "🇬🇧 English", callback_data: 'set_lang_en' }
+                                ]
                             ]
                         }
                     };
-                    bot.sendMessage(chatId, welcomeNewMessage, opts);
+                    
+                    // Foydalanuvchiga tugmalar bilan birga xabar yuborish
+                    await bot.sendMessage(chatId, welcomeNewMessage, opts);
+        
+                    // Kanalga xabarnoma yuborish (bu alohida ishlaydi)
+                    try {
+                        if (channel) {
+                            const userFullName = (userInfo.first_name + (userInfo.last_name ? ` ${userInfo.last_name}` : '')).replace(/</g, '<').replace(/>/g, '>');
+                            const userLink = `<a href="tg://user?id=${chatId}">${userFullName}</a>`;
+        
+                            let notificationText = `✅ <b>Yangi foydalanuvchi!</b>\n\n`
+                                             + `👤 <b>Foydalanuvchi:</b> ${userLink}\n`
+                                             + `🆔 <b>ID:</b> <code>${chatId}</code>\n`;
+                            if (userInfo.username) {
+                                notificationText += `🪪 <b>Username:</b> @${userInfo.username}`;
+                            }
+                            
+                            await bot.sendMessage(channel, notificationText, { parse_mode: 'HTML' });
+                        }
+                    } catch (notifyError) {
+                        console.error('[XATO] Kanalga xabar yuborishda xatolik:', notifyError.message);
+                    }
+        
                 } else {
+                    // Mavjud foydalanuvchilar uchun blok (bu yer o'zgarmagan)
                     await db.upsertUser(chatId, user.language, userInfo);
                     bot.sendMessage(chatId, await t(chatId, 'welcome_existing'));
                 }
             } catch (error) {
-                console.error(`Error in /start handler for chat ID ${chatId}:`, error);
-                let langForError = DEFAULT_LANGUAGE_FOR_NEW_USER;
-                try { const userForErrorCheck = await db.getUser(chatId); if (userForErrorCheck && userForErrorCheck.language) { langForError = userForErrorCheck.language; }} catch (dbError) { /* ignore */ }
-                const errorText = loadedTranslations[langForError]?.error_bot_connection || loadedTranslations['uz']?.error_bot_connection || "An error occurred with the bot.";
-                bot.sendMessage(chatId, errorText);
+                console.error(`[/start handler xatosi] ID ${chatId}:`, error);
             }
         });
 
